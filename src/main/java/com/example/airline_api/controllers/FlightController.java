@@ -36,4 +36,17 @@ public class FlightController {
         return new ResponseEntity<>(savedFlight, HttpStatus.CREATED);
     }
 
+    @PatchMapping
+    public ResponseEntity<Flight> addPassengerToFlight(@PathVariable long id, @RequestBody BookingDTO bookingDTO){
+        long passengerId = bookingDTO.getPassengerId();
+        Flight updatedFlight = flightService.addPassengerToFlight(id, passengerId);
+        return new ResponseEntity<>(updatedFlight, HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity cancelFlight(@PathVariable long id){
+        flightService.deleteFlight(id);
+        return new ResponseEntity(null, HttpStatus.NO_CONTENT);
+    }
+
 }
